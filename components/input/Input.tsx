@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Box, FormControl, Input as InputNativeBase, Text} from "native-base"
-import {Control, useController} from "react-hook-form";
-import {TLoginSchema} from "../../screens/login/Login";
+import {useController} from "react-hook-form";
+import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 
-interface IInput {
+interface IInput extends InterfaceInputProps{
     label: string,
     placeholder: string,
     name: TInputName,
@@ -11,7 +11,7 @@ interface IInput {
 
 export type TInputName = "email" | "senha" | "confirmacaoSenha";
 
-function Input({label, placeholder, name}: IInput) {
+function Input({label, placeholder, name, ...props}: IInput) {
     const {field} = useController({
         name,
     });
@@ -37,6 +37,8 @@ function Input({label, placeholder, name}: IInput) {
                 }}
 
                 onChangeText={field.onChange} // send value to hook form
+
+                {...props}
             />
         </Box>
     );
