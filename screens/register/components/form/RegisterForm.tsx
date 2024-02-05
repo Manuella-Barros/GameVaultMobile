@@ -6,7 +6,7 @@ import Button from "../../../../components/button/Button";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
-import SelectDropDown from "../../../login/components/selectDropDown/SelectDropDown";
+import SelectDropDown from "../selectDropDown/SelectDropDown";
 
 const inputInfo = [
     {
@@ -29,9 +29,22 @@ const inputInfo = [
 ]
 
 const registerSchema = z.object({
-    email: z.string().email(),
-    senha: z.string().min(3).max(18),
-    confirmacaoSenha: z.string().min(3).max(18),
+    email:
+        z.string()
+        .email({message: "Email inválido"}),
+    senha:
+        z.string()
+        .min(3, {message: "Mínimo 3 caracteres"})
+        .max(18, {message: "Máximo 18 caracteres"}),
+    confirmacaoSenha:
+        z.string()
+        .min(3, {message: "Mínimo 3 caracteres"})
+        .max(18, {message: "Máximo 18 caracteres"}),
+}).refine((fields) => {
+    return fields.senha == fields.confirmacaoSenha
+}, {
+    message: "As senhas devem ser iguais",
+    path: ["confirmacaoSenha"],
 })
 
 type TRegisterSchema = z.infer<typeof registerSchema>;
@@ -51,20 +64,18 @@ function RegisterForm() {
     const [genero1, setGenero1] = useState<null | TGenres>(null);
     const [genero2, setGenero2] = useState<null | TGenres>(null);
 
-    useEffect(() => {
-        handleSelectDropdown()
-    }, [genero1, genero2])
-
-    function handleSelectDropdown(){
+    function handleRegisterUser(data: TRegisterSchema){
         if(genero1 && genero2 && (genero1 != genero2)){
             console.log(genero1)
             console.log(genero2)
+            console.log(data)
         }
     }
 
-    function handleRegisterUser(data: TRegisterSchema){
-        console.log(data)
-    }
+
+    useEffect(() => {
+        console.log(methods.formState.errors)
+    }, [methods.formState.errors])
 
     return (
         <VStack m={10}>
@@ -83,6 +94,7 @@ function RegisterForm() {
                                       label={item.label}
                                       name={item.name as TInputName}
                                       type={item?.type as InterfaceInputProps["type"]}
+                                      errors={methods.formState.errors}
                         />
                     }}
                 />

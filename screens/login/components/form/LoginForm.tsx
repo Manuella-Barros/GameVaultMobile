@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Text, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
@@ -22,8 +22,12 @@ const inputInfo = [
 ]
 
 const loginSchema = z.object({
-    email: z.string().email(),
-    senha: z.string(),
+    email:
+        z.string()
+        .email({message: "Email inválido"}),
+    senha:
+        z.string()
+        .min(1, {message: "Campo obrigatório"}),
 })
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
@@ -57,6 +61,7 @@ function LoginForm() {
                                       label={item.label}
                                       name={item.name as TInputName}
                                       type={item?.type as InterfaceInputProps["type"]}
+                                      errors={methods.formState.errors}
                         />
                     }}
                 />

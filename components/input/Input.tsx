@@ -1,23 +1,24 @@
 import React from 'react';
-import {Box, FormControl, Input as InputNativeBase, Text} from "native-base"
-import {useController} from "react-hook-form";
+import {Box, FormControl, Input as InputNativeBase, Text, WarningOutlineIcon} from "native-base"
+import {FieldErrors, useController} from "react-hook-form";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 
 interface IInput extends InterfaceInputProps{
     label: string,
     placeholder: string,
     name: TInputName,
+    errors: FieldErrors,
 }
 
 export type TInputName = "email" | "senha" | "confirmacaoSenha";
 
-function Input({label, placeholder, name, ...props}: IInput) {
+function Input({label, placeholder, name, errors, ...props}: IInput) {
     const {field} = useController({
         name,
     });
 
     return (
-        <Box my={2}>
+        <FormControl my={2} isInvalid={!!errors[name]}>
             <FormControl.Label>
                 <Text
                     fontSize={16}
@@ -27,9 +28,9 @@ function Input({label, placeholder, name, ...props}: IInput) {
 
             <InputNativeBase
                 placeholder={placeholder}
-                variant={"unstyled"}
                 backgroundColor={"gray.700"}
                 color={"white"}
+                borderColor={"gray.700"}
                 _focus={{
                     backgroundColor: "gray.600",
                     borderWidth: 1,
@@ -40,7 +41,15 @@ function Input({label, placeholder, name, ...props}: IInput) {
 
                 {...props}
             />
-        </Box>
+
+            {
+                errors[name] &&
+                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                    {errors[name]?.message}
+                </FormControl.ErrorMessage>
+            }
+
+        </FormControl>
     );
 }
 

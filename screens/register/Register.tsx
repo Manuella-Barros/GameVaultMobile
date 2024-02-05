@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, VStack} from "native-base";
+import {ScrollView, Text, VStack} from "native-base";
 import BackgroundGradientImage from "../../components/backgroundGradientImage/BackgroundGradientImage";
 import gameBackground from "../../assets/images/gameBackground-2.jpg";
 import Button from "../../components/button/Button";
@@ -16,22 +16,22 @@ function Register() {
             justifyContent={"space-between"}
             backgroundColor={"gray.900"}
         >
+            <ScrollView>
+                <BackgroundGradientImage imgSource={gameBackground}/>
 
-            <BackgroundGradientImage imgSource={gameBackground}/>
+                <RegisterForm/>
 
-            <RegisterForm/>
+                <VStack my={10} mx={10}>
+                    <Text
+                        color={"white"}
+                        textAlign={"center"}
+                    >Já possui uma conta?</Text>
 
-            <VStack my={10} mx={10}>
-                <Text
-                    color={"white"}
-                    textAlign={"center"}
-                >Já possui uma conta?</Text>
-
-                <Button
-                    styleType={"variant"}
-                    onPress={() => navigate("login")}
-                >Entrar</Button>
-            </VStack>
+                    <Button
+                        styleType={"variant"}
+                        onPress={() => navigate("login")}
+                    >Entrar</Button>
+                </VStack></ScrollView>
         </VStack>
     );
 }
