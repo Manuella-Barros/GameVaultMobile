@@ -4,7 +4,7 @@ import BackgroundGradientImage from "../../components/backgroundGradientImage/Ba
 import gameBackground from "../../assets/images/gameBackground-2.jpg";
 import Button from "../../components/button/Button";
 import {useNavigation} from "@react-navigation/native";
-import {TAuthRoutesProps} from "../../routes/authRoutes";
+import {TAuthRoutesProps} from "../../routes/authRoutes/authRoutes";
 import RegisterForm from "./components/form/RegisterForm";
 
 function Register() {

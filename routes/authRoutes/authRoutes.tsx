@@ -3,8 +3,8 @@ import {
     createNativeStackNavigator,
     NativeStackNavigationProp, NativeStackScreenProps,
 } from "@react-navigation/native-stack"
-import Login from "../screens/login/Login";
-import Register from "../screens/register/Register";
+import Login from "../../screens/login/Login";
+import Register from "../../screens/register/Register";
 
 type TAuthRoutes = {
     login: undefined,

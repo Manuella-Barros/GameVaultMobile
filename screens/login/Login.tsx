@@ -3,7 +3,7 @@ import Button from "../../components/button/Button";
 import gameBackground from "../../assets/images/gameBackground-1.jpg"
 import BackgroundGradientImage from "../../components/backgroundGradientImage/BackgroundGradientImage";
 import {useNavigation} from "@react-navigation/native";
-import {TAuthRoutesProps} from "../../routes/authRoutes";
+import {TAuthRoutesProps} from "../../routes/authRoutes/authRoutes";
 import LoginForm from "./components/form/LoginForm";
 
 function Login() {

@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthRoutes from "./authRoutes";
-import AppRoutes from "./appRoutes";
+import AuthRoutes from "./authRoutes/authRoutes";
+import AppRoutes from "./appRoutes/appRoutes";
 import {NavigationContainer} from "@react-navigation/native";
 
 function IndexRoutes() {
@@ -8,7 +8,7 @@ function IndexRoutes() {
 
     return (
         <NavigationContainer>
-            {user ? <AppRoutes/> : <AuthRoutes/>}
+            {!user ? <AppRoutes/> : <AuthRoutes/>}
         </NavigationContainer>
 
     );
