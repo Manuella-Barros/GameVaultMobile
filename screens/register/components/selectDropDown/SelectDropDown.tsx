@@ -1,32 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {FormControl, Select, WarningOutlineIcon} from "native-base";
+import {IGenres} from "../form/types";
+import {ISelectDropDownProps} from "./types";
 
-interface ISelectDropDownProps<T> {
-    label?: null | string,
-    placeholder: string,
-    data: null | string[],
-    errorMessage: string,
-    selectedItem: null | T,
-    setSelectedItem:  React.Dispatch<React.SetStateAction<null | T>>,
-}
 
-function SelectDropDown<T>({label, placeholder, data, errorMessage, selectedItem, setSelectedItem}: ISelectDropDownProps<T>) {
 
+function SelectDropDown({label, placeholder, data, errorMessage, setSelectedItem}: ISelectDropDownProps) {
     return (
-        <FormControl isRequired isInvalid={!selectedItem} my={1}>
+        <FormControl my={1} isRequired isInvalid={!!errorMessage}>
             {
                 label && <FormControl.Label>{label}</FormControl.Label>
             }
-
 
             <Select accessibilityLabel={placeholder}
                     placeholder={placeholder}
                     mt="1"
                     color={"white"}
-                    onValueChange={(itemSelectedValue: T) => setSelectedItem(itemSelectedValue)}
+                    onValueChange={(itemSelectedValue) => setSelectedItem(Number(itemSelectedValue))}
             >
                 {
-                    data && data.map((d) => <Select.Item label={d as string} value={d as string} />)
+                    data && data.map((d) => <Select.Item label={d.name} value={d.id.toString()} />)
                 }
 
             </Select>

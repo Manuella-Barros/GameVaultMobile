@@ -6,39 +6,12 @@ import Button from "../../../../components/button/Button";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
-
-const inputInfo = [
-    {
-        label: "Email",
-        placeholder: "exemplo@gmail.com",
-        name: "email",
-    },
-    {
-        label: "Senha",
-        placeholder: "******",
-        name: "senha",
-        type: "password",
-    },
-]
-
-const loginSchema = z.object({
-    email:
-        z.string()
-        .email({message: "Email inválido"}),
-    senha:
-        z.string()
-        .min(1, {message: "Campo obrigatório"}),
-})
-
-export type TLoginSchema = z.infer<typeof loginSchema>;
+import {loginSchema, TLoginSchema} from "./types";
+import {inputInfo} from "./arrays";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: '',
-            senha: ''
-        }
     });
 
     function handleLoginUser(data: TLoginSchema){

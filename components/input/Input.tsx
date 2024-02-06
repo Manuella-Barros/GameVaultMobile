@@ -42,12 +42,9 @@ function Input({label, placeholder, name, errors, ...props}: IInput) {
                 {...props}
             />
 
-            {
-                errors[name] &&
-                <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-                    {errors[name]?.message}
-                </FormControl.ErrorMessage>
-            }
+            <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+                {errors[name]?.message}
+            </FormControl.ErrorMessage>
 
         </FormControl>
     );
