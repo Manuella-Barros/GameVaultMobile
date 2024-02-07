@@ -1,5 +1,10 @@
 export const inputInfo = [
     {
+        label: "Name",
+        placeholder: "nome",
+        name: "name"
+    },
+    {
         label: "Email",
         placeholder: "exemplo@gmail.com",
         name: "email"

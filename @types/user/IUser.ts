@@ -1,0 +1,8 @@
+export interface IUser {
+    name: string,
+    email: string,
+    password: string,
+    favGenre1: number,
+    favGenre2: number,
+    favGame: string,
+}

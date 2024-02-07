@@ -6,7 +6,7 @@ import Button from "../../../../components/button/Button";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
-import {loginSchema, TLoginSchema} from "./types";
+import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
 
 function LoginForm() {

@@ -6,8 +6,9 @@ import Button from "../../../../components/button/Button";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 import SelectDropDown from "../selectDropDown/SelectDropDown";
-import {registerSchema, TRegisterSchema} from "./types";
+import {registerSchema, TRegisterSchema} from "../../../../@types/user/register/registerSchema";
 import {genres, inputInfo} from "./arrays";
+import {createUser} from "../../../../api/createUser";
 
 function RegisterForm() {
     const {setValue, ...methods} = useForm<TRegisterSchema>({
@@ -15,7 +16,8 @@ function RegisterForm() {
     })
 
     function handleRegisterUser(data: TRegisterSchema){
-        console.log(data)
+        const {passwordConfirmation, ...userInfo} = data;
+        createUser(userInfo).then(res => console.log(res))
     }
 
     useEffect(() => {
@@ -47,21 +49,15 @@ function RegisterForm() {
                 <SelectDropDown label={"1º Gênero Favorito"}
                                 data={genres}
                                 placeholder={"Escolha um gênero favorito"}
-                                errorMessage={methods.formState.errors.genre1?.message}
-                                setSelectedItem={(value)=> setValue('genre1', value)}
+                                errorMessage={methods.formState.errors.favGenre1?.message}
+                                setSelectedItem={(value)=> setValue('favGenre1', value)}
                 />
                 <SelectDropDown label={"2º Gênero Favorito"}
                                 data={genres}
                                 placeholder={"Escolha um gênero favorito"}
-                                errorMessage={methods.formState.errors.genre2?.message}
-                                setSelectedItem={(value)=> setValue('genre2', value)}
+                                errorMessage={methods.formState.errors.favGenre2?.message}
+                                setSelectedItem={(value)=> setValue('favGenre2', value)}
                 />
-                {/*<SelectDropDown label={"Jogo Favorito"}*/}
-                {/*                data={genres}*/}
-                {/*                placeholder={"Escolha seu jogo favorito"}*/}
-                {/*                errorMessage={methods.formState.errors.favGame?.message}*/}
-                {/*                setSelectedItem={(value)=> setValue('favGame', value)}*/}
-                {/*/>*/}
 
                 <Button onPress={methods.handleSubmit(handleRegisterUser)}
                 >Registrar</Button>

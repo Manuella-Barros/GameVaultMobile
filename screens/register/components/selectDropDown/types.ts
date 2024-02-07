@@ -1,4 +1,4 @@
-import {IGenres} from "../form/types";
+import {IGenres} from "../../../../@types/user/register/IGenres";
 
 export interface ISelectDropDownProps {
     label?: null | string,

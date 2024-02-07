@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormControl, Select, WarningOutlineIcon} from "native-base";
-import {IGenres} from "../form/types";
+import {IGenres} from "../../../../@types/user/register/registerSchema";
 import {ISelectDropDownProps} from "./types";
 
 
