@@ -9,15 +9,24 @@ import SelectDropDown from "../selectDropDown/SelectDropDown";
 import {registerSchema, TRegisterSchema} from "../../../../@types/user/register/registerSchema";
 import {genres, inputInfo} from "./arrays";
 import {createUser} from "../../../../api/createUser";
+import {useNavigation} from "@react-navigation/native";
+import {TAuthRoutesProps} from "../../../../routes/authRoutes/authRoutes";
 
 function RegisterForm() {
     const {setValue, ...methods} = useForm<TRegisterSchema>({
         resolver: zodResolver(registerSchema),
     })
+    const navigate = useNavigation<TAuthRoutesProps>();
+    const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
 
     function handleRegisterUser(data: TRegisterSchema){
+        setIsInfoLoading(true);
+
         const {passwordConfirmation, ...userInfo} = data;
-        createUser(userInfo).then(res => console.log(res))
+        createUser(userInfo).then(res => {
+            console.log(res);
+            navigate.navigate("login");
+        }).finally(() => setIsInfoLoading(false))
     }
 
     useEffect(() => {
@@ -60,6 +69,7 @@ function RegisterForm() {
                 />
 
                 <Button onPress={methods.handleSubmit(handleRegisterUser)}
+                        isLoading={isInfoLoading}
                 >Registrar</Button>
             </FormProvider>
         </VStack>
@@ -67,15 +77,3 @@ function RegisterForm() {
 }
 
 export default RegisterForm;
-
-// <FlatList
-//     data={inputInfo}
-//     renderItem={({item}) => {
-//         return <Input placeholder={item.placeholder}
-//                       label={item.label}
-//                       name={item.name as TInputName}
-//                       type={item?.type as InterfaceInputProps["type"]}
-//                       errors={methods.formState.errors}
-//         />
-//     }}
-// />

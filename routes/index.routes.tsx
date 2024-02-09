@@ -8,7 +8,7 @@ function IndexRoutes() {
 
     return (
         <NavigationContainer>
-            {!user ? <AppRoutes/> : <AuthRoutes/>}
+            {user ? <AppRoutes/> : <AuthRoutes/>}
         </NavigationContainer>
 
     );

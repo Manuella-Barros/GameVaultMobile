@@ -1,7 +1,7 @@
 export const inputInfo = [
     {
         label: "Name",
-        placeholder: "nome",
+        placeholder: "Nome",
         name: "name"
     },
     {

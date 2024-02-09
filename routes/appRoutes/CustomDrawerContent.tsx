@@ -6,65 +6,54 @@ import {
     DrawerItemList
 } from "@react-navigation/drawer";
 import {Gear} from "phosphor-react-native";
-import {Divider, HStack, Image, Text, View, VStack} from "native-base";
+import {Button, Divider, HStack, Image, Text, View, VStack} from "native-base";
 import userPlaceholder from "../../assets/images/userPlaceholder.jpg"
 import ProfileImage from "../../components/profileImage/ProfileImage";
 
-interface ICustomDrawerContentProps {
-    props: DrawerContentComponentProps
-}
+function CustomDrawerContent(props: DrawerContentComponentProps) {
+    const {state, navigation} = props;
 
-function CustomDrawerContent(props) {
     return (
-        <View flex={1}>
-            <View backgroundColor={"white"}>
+        <View flex={1} mx={3} my={6}>
+            <HStack space={5} alignItems={"center"} >
                 <ProfileImage userProfileImage={userPlaceholder}/>
 
-            </View>
+                <VStack>
+                    <Text fontSize={20} color={"white"}>Manu</Text>
 
-            <DrawerContentScrollView {...props} style={{
-                backgroundColor: "white",
-            }}>
-                <DrawerItemList {...props}/>
+                    <HStack space={2}>
+                        <Text color={"white"}>FPS</Text>
+                        <Divider orientation={"vertical"}/>
+                        <Text color={"white"}>Actions Games</Text>
+                    </HStack>
+                </VStack>
+            </HStack>
+
+            <DrawerContentScrollView {...props} style={{marginVertical: 20}}>
+                {
+                    state.routes.map((route, i) => {
+                        return (
+                            <DrawerItem label={route.name}
+                                onPress={() => navigation.navigate(route.name)}
+                                        icon={() => <View marginRight={"-5"} marginLeft={"-3"}><Gear color={"white"}/></View>}
+                                labelStyle={{
+                                    color: "white",
+                                    margin: 0,
+                                    fontSize: 16,
+                                }}
+                            />
+                        )
+                    })
+                }
             </DrawerContentScrollView>
 
-            <View>
-                <Text>Sair</Text>
-            </View>
+            <Button variant={"unstyled"} justifyContent={"left"} >
+                <HStack space={3}>
+                    <Gear size={25} color={"white"}/>
+                    <Text color={"white"} fontSize={16}>Sair</Text>
+                </HStack>
+            </Button>
         </View>
-
-        // <View flex={1}
-        //       p={5}
-        //       backgroundColor={"#1D1D1D"}
-        //       display={"flex"}
-        //       justifyContent={"space-between"}
-        // >
-        // <DrawerContentScrollView {...props}>
-        //     <HStack space={5} alignItems={"center"}>
-        //         <ProfileImage userProfileImage={userPlaceholder}/>
-        //
-        //         <VStack>
-        //             <Text fontSize={20} color={"white"}>Manu</Text>
-        //
-        //             <HStack space={2}>
-        //                 <Text color={"white"}>FPS</Text>
-        //                 <Divider orientation={"vertical"}/>
-        //                 <Text color={"white"}>Actions Games</Text>
-        //             </HStack>
-        //         </VStack>
-        //     </HStack>
-        //
-        //     <VStack>
-        //         <DrawerItemList {...props} />
-        //         <DrawerItem
-        //             label="Sair"
-        //             onPress={() => console.log("Por uma função aqui")}
-        //             icon={() => <Gear/>}
-        //         />
-        //     </VStack>
-        //
-        // </DrawerContentScrollView>
-        // </View>
     );
 }
 
