@@ -15,14 +15,31 @@ function AppRoutes() {
     const {Screen, Navigator} = createDrawerNavigator<TAppRoutes>();
 
     return (
-        <Navigator drawerContent={(props) => <CustomDrawerContent {...props}/>}
-                   screenOptions={{
-                       headerShown: false,
-                       
-                   }}
+        <Navigator  drawerContent={(props) => <CustomDrawerContent {...props}/>}
+                    screenOptions={{
+                        headerShown: false,
+                        drawerStyle: {
+                            backgroundColor: "transparent"
+                        }
+                    }}
         >
             <Screen name={"home"} component={Home}/>
         </Navigator>
+        // <Navigator drawerContent={(props) => <CustomDrawerContent {...props}/>}
+        //            screenOptions={{
+        //                headerShown: false,
+        //                drawerStyle:{
+        //                    backgroundColor:"transparent",
+        //                    flex: 1
+        //                    // padding: 10,
+        //                    // backgroundColor:"#1D1D1D",
+        //                    // display: "flex",
+        //                    // justifyContent: "space-between"
+        //                },
+        //            }}
+        // >
+        //     <Screen name={"home"} component={Home}/>
+        // </Navigator>
     );
 }
 

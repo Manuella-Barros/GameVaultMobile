@@ -1,21 +1,27 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {FlatList, Text, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
 import Button from "../../../../components/button/Button";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {z} from "zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
+import {loginUser} from "../../../../api/loginUser";
+import {useNavigation} from "@react-navigation/native";
+import {TAppRoutesProps} from "../../../../routes/appRoutes/appRoutes";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
+    const navigation = useNavigation<TAppRoutesProps>();
 
     function handleLoginUser(data: TLoginSchema){
-        console.log(data)
+        loginUser(data).then(res => {
+            console.log(res)
+            // navigation.navigate("home")
+        })
     }
 
     return (
