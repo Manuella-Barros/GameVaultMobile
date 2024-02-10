@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import AuthRoutes from "./authRoutes/authRoutes";
 import AppRoutes from "./appRoutes/appRoutes";
 import {NavigationContainer} from "@react-navigation/native";
+import {GlobalContext} from "../context/GlobalContext";
 
 function IndexRoutes() {
-    const user = undefined
+    const {userToken} = useContext(GlobalContext);
 
     return (
         <NavigationContainer>
-            {user ? <AppRoutes/> : <AuthRoutes/>}
+            {userToken ? <AppRoutes/> : <AuthRoutes/>}
         </NavigationContainer>
 
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
     DrawerContentComponentProps,
     DrawerContentScrollView,
@@ -9,9 +9,11 @@ import {Gear} from "phosphor-react-native";
 import {Button, Divider, HStack, Image, Text, View, VStack} from "native-base";
 import userPlaceholder from "../../assets/images/userPlaceholder.jpg"
 import ProfileImage from "../../components/profileImage/ProfileImage";
+import {GlobalContext} from "../../context/GlobalContext";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
     const {state, navigation} = props;
+    const {userState} = useContext(GlobalContext);
 
     return (
         <View flex={1} mx={3} my={6}>
@@ -19,12 +21,12 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
                 <ProfileImage userProfileImage={userPlaceholder}/>
 
                 <VStack>
-                    <Text fontSize={20} color={"white"}>Manu</Text>
+                    <Text fontSize={20} color={"white"}>{userState?.name}</Text>
 
                     <HStack space={2}>
-                        <Text color={"white"}>FPS</Text>
+                        <Text color={"white"}>{userState?.favGenre1}</Text>
                         <Divider orientation={"vertical"}/>
-                        <Text color={"white"}>Actions Games</Text>
+                        <Text color={"white"}>{userState?.favGenre2}</Text>
                     </HStack>
                 </VStack>
             </HStack>

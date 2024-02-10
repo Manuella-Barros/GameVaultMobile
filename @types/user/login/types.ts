@@ -1,4 +1,7 @@
 import {z} from "zod";
+import {IUser} from "../IUser";
+import {IUserEntity} from "../IUserEntity";
+import {IToken} from "../../auth/IToken";
 
 export const loginSchema = z.object({
     email:
@@ -9,3 +12,5 @@ export const loginSchema = z.object({
 })
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
+
+export type TLoginReturn = IUser & Pick<IUserEntity, "id" | "createdAt" | "updatedAt"> & IToken

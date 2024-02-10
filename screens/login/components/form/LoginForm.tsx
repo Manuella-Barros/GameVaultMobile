@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {FlatList, Text, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
@@ -10,18 +10,31 @@ import {inputInfo} from "./arrays";
 import {loginUser} from "../../../../api/loginUser";
 import {useNavigation} from "@react-navigation/native";
 import {TAppRoutesProps} from "../../../../routes/appRoutes/appRoutes";
+import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
-    const navigation = useNavigation<TAppRoutesProps>();
+    const {handleSetUserToken, handleDispatch} = useContext(GlobalContext);
+    const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
 
     function handleLoginUser(data: TLoginSchema){
+        setIsInfoLoading(true)
+
         loginUser(data).then(res => {
-            console.log(res)
-            // navigation.navigate("home")
-        })
+            const {access_token, ...userInfo} = res;
+
+            handleSetUserToken(access_token);
+            console.log({...{...userInfo}})
+
+            handleDispatch({
+                type: ACTION_TYPES.ADD_USER_INFO,
+                payload: {...userInfo}
+            })
+
+            // navigate.navigate("Home", {name, favGenre1, favGenre2})
+        }).finally(() => setIsInfoLoading(false))
     }
 
     return (
@@ -46,6 +59,7 @@ function LoginForm() {
                 />
 
                 <Button onPress={methods.handleSubmit(handleLoginUser)}
+                        isLoading={isInfoLoading}
                 >Entrar</Button>
             </FormProvider>
 

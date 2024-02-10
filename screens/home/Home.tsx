@@ -5,15 +5,17 @@ import {getRandomGame} from "../../api/getRandomGame";
 import {GameDto} from "../../@types/games/game.dto";
 import GameContainer from "./components/gameContainer/GameContainer";
 import CommentsContainer from "./components/commentsContainer/CommentsContainer";
-import {DrawerActions, useNavigation} from "@react-navigation/native";
+import {DrawerActions, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {List, MagnifyingGlass} from "phosphor-react-native";
+import {TAppRoutes, TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
 function Home() {
-    const navigation = useNavigation();
+    const navigation = useNavigation<TAppRoutesProps>();
     const [currentGame, setCurrentGame] = useState<GameDto>()
 
     useEffect(() => {
         getRandomGame().then(res => setCurrentGame(res))
     }, []);
+
 
     if(!currentGame)
         return <></>

@@ -4,9 +4,10 @@ import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/dra
 import Home from "../../screens/home/Home";
 import {useNavigation} from "@react-navigation/native";
 import CustomDrawerContent from "./CustomDrawerContent";
+import {IUser} from "../../@types/user/IUser";
 
-type TAppRoutes = {
-    Home: undefined,
+export type TAppRoutes = {
+    Home:  undefined
     Perfil: undefined,
     Catalogo: undefined,
 }
