@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, VStack} from "native-base";
+import {Text, useToast, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
 import Button from "../../../../components/button/Button";
@@ -18,6 +18,7 @@ function RegisterForm() {
     })
     const navigate = useNavigation<TAuthRoutesProps>();
     const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
+    const toast = useToast();
 
     function handleRegisterUser(data: TRegisterSchema){
         setIsInfoLoading(true);
@@ -25,6 +26,7 @@ function RegisterForm() {
         const {passwordConfirmation, ...userInfo} = data;
         createUser(userInfo).then(res => {
             console.log(res);
+            toast.show({title: "Cadastrado com sucesso", placement: "top", backgroundColor: "green.500"})
             navigate.navigate("login");
         }).finally(() => setIsInfoLoading(false))
     }

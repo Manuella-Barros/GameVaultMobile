@@ -10,7 +10,7 @@ export const enum ACTION_TYPES {
 
 function reducer(state: TState, action: IAction) {
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    // console.log(action.payload)
+    console.log(action.payload)
 
     switch (action.type){
         case ACTION_TYPES.ADD_USER_INFO:

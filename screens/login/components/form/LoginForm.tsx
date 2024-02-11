@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {FlatList, Text, VStack} from "native-base";
+import {FlatList, Text, useToast, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
 import Button from "../../../../components/button/Button";
@@ -18,22 +18,22 @@ function LoginForm() {
     });
     const {handleSetUserToken, handleDispatch} = useContext(GlobalContext);
     const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
+    const toast = useToast();
 
     function handleLoginUser(data: TLoginSchema){
         setIsInfoLoading(true)
 
         loginUser(data).then(res => {
-            const {access_token, ...userInfo} = res;
+            toast.show({title: "Logado com sucesso", placement: "top", backgroundColor: "green.500"})
+
+            const {access_token, user} = res;
 
             handleSetUserToken(access_token);
-            console.log({...{...userInfo}})
 
             handleDispatch({
                 type: ACTION_TYPES.ADD_USER_INFO,
-                payload: {...userInfo}
+                payload: {...user}
             })
-
-            // navigate.navigate("Home", {name, favGenre1, favGenre2})
         }).finally(() => setIsInfoLoading(false))
     }
 

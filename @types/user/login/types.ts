@@ -13,4 +13,6 @@ export const loginSchema = z.object({
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
 
-export type TLoginReturn = IUser & Pick<IUserEntity, "id" | "createdAt" | "updatedAt"> & IToken
+export type TLoginReturn = IToken & {
+    user: IUser & Pick<IUserEntity, "id" | "createdAt" | "updatedAt">
+}
