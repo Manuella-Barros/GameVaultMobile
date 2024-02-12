@@ -5,19 +5,20 @@ import {IUserEntity} from "../@types/user/IUserEntity";
 export const GlobalContext = createContext({} as IGlobalContext)
 
 export const enum ACTION_TYPES {
-    "ADD_USER_INFO"
+    "ADD_USER_INFO",
+    "LOGOUT",
 }
 
 function reducer(state: TState, action: IAction) {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-    console.log(action.payload)
-
     switch (action.type){
         case ACTION_TYPES.ADD_USER_INFO:
             if(!state){
                 return action.payload;
             }
             return {...state, ...action.payload}
+
+        case ACTION_TYPES.LOGOUT:
+            return null;
     }
 }
 

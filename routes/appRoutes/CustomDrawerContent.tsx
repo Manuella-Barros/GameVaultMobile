@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     DrawerContentComponentProps,
     DrawerContentScrollView,
@@ -10,10 +10,12 @@ import {Button, Divider, HStack, Image, Text, View, VStack} from "native-base";
 import userPlaceholder from "../../assets/images/userPlaceholder.jpg"
 import ProfileImage from "../../components/profileImage/ProfileImage";
 import {GlobalContext} from "../../context/GlobalContext";
+import {LogoutDialog} from "./logoutDialog";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
     const {state, navigation} = props;
     const {userState} = useContext(GlobalContext);
+    const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
     return (
         <View flex={1} mx={3} my={6}>
@@ -50,11 +52,13 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             </DrawerContentScrollView>
 
             <Button variant={"unstyled"} justifyContent={"left"} >
-                <HStack space={3}>
+                <Button variant={"unstyled"} flexDirection={"row"} display={"flex"} onPress={() => setIsLogoutOpen(true)}>
                     <Gear size={25} color={"white"}/>
                     <Text color={"white"} fontSize={16}>Sair</Text>
-                </HStack>
+                </Button>
             </Button>
+
+            <LogoutDialog isOpen={isLogoutOpen} setOnClose={() => setIsLogoutOpen(false)}/>
         </View>
     );
 }

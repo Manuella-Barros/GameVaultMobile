@@ -7,7 +7,7 @@ export interface IGlobalContextProps {
 }
 
 export interface IGlobalContext {
-    handleSetUserToken: (token: string) => void,
+    handleSetUserToken: (token: string | null) => void,
     userToken: string | null,
     userState: IUserEntity| null,
     handleDispatch: (data: IAction) => void,
