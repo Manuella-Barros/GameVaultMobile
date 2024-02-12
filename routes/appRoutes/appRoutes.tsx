@@ -8,9 +8,9 @@ import {IUser} from "../../@types/user/IUser";
 import ReviewsContainer from "../../screens/reviews/ReviewsContainer";
 
 export type TAppRoutes = {
-    Home:  undefined
-    Perfil: undefined,
-    Avaliações: undefined,
+    home:  undefined
+    profile: undefined,
+    reviews: undefined,
 }
 
 export type TAppRoutesProps = DrawerNavigationProp<TAppRoutes>
@@ -25,13 +25,12 @@ function AppRoutes() {
                         headerShown: false,
                         drawerStyle: {
                             backgroundColor: theme.colors["gray"]["800"],
-
-                        }
+                        },
                     }}
         >
-            <Screen name={"Home"} component={Home}/>
-            <Screen name={"Avaliações"} component={ReviewsContainer}/>
-            <Screen name={"Perfil"} component={Home}/>
+            <Screen name={"home"} component={Home} options={{title: "Home"}}/>
+            <Screen name={"reviews"} component={ReviewsContainer} options={{title: "Avaliações"}}/>
+            <Screen name={"profile"} component={Home} options={{title: "Perfil"}}/>
         </Navigator>
     );
 }

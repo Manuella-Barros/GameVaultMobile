@@ -13,7 +13,7 @@ import {GlobalContext} from "../../context/GlobalContext";
 import {LogoutDialog} from "./logoutDialog";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
-    const {state, navigation} = props;
+    const {state, navigation, descriptors} = props;
     const {userState} = useContext(GlobalContext);
     const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
@@ -36,15 +36,11 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             <DrawerContentScrollView {...props} style={{marginVertical: 20}}>
                 {
                     state.routes.map((route, i) => {
+                        const {options} = descriptors[route.key]
                         return (
-                            <DrawerItem label={route.name}
-                                onPress={() => navigation.navigate(route.name)}
+                            <DrawerItem label={(props) => <Text color={"white"}>{options.title}</Text>}
+                                        onPress={() => navigation.navigate(route.name)}
                                         icon={() => <View marginRight={"-5"} marginLeft={"-3"}><Gear color={"white"}/></View>}
-                                labelStyle={{
-                                    color: "white",
-                                    margin: 0,
-                                    fontSize: 16,
-                                }}
                             />
                         )
                     })
