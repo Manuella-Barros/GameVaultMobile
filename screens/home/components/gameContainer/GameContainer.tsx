@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Divider, HStack, Text, View, VStack, Button as ButtonNativeBase} from "native-base";
 import Button from "../../../../components/button/Button";
-import Stars from "../../../../components/stars/Stars";
+import Stars from "../stars/Stars";
 import {GameDto} from "../../../../@types/games/game.dto";
 import {getRandomGame} from "../../../../api/getRandomGame";
 

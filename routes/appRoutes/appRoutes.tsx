@@ -5,11 +5,12 @@ import Home from "../../screens/home/Home";
 import {useNavigation} from "@react-navigation/native";
 import CustomDrawerContent from "./CustomDrawerContent";
 import {IUser} from "../../@types/user/IUser";
+import ReviewsContainer from "../../screens/reviews/ReviewsContainer";
 
 export type TAppRoutes = {
     Home:  undefined
     Perfil: undefined,
-    Catalogo: undefined,
+    Avaliações: undefined,
 }
 
 export type TAppRoutesProps = DrawerNavigationProp<TAppRoutes>
@@ -29,8 +30,8 @@ function AppRoutes() {
                     }}
         >
             <Screen name={"Home"} component={Home}/>
+            <Screen name={"Avaliações"} component={ReviewsContainer}/>
             <Screen name={"Perfil"} component={Home}/>
-            <Screen name={"Catalogo"} component={Home}/>
         </Navigator>
     );
 }

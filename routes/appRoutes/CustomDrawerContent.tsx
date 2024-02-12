@@ -51,11 +51,11 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
                 }
             </DrawerContentScrollView>
 
-            <Button variant={"unstyled"} justifyContent={"left"} >
-                <Button variant={"unstyled"} flexDirection={"row"} display={"flex"} onPress={() => setIsLogoutOpen(true)}>
+            <Button variant={"unstyled"} justifyContent={"left"} onPress={() => setIsLogoutOpen(true)} >
+                <HStack space={2}>
                     <Gear size={25} color={"white"}/>
                     <Text color={"white"} fontSize={16}>Sair</Text>
-                </Button>
+                </HStack>
             </Button>
 
             <LogoutDialog isOpen={isLogoutOpen} setOnClose={() => setIsLogoutOpen(false)}/>
