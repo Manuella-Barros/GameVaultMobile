@@ -1,6 +1,6 @@
-import {createContext, useReducer, useState} from "react";
+import {createContext, useEffect, useReducer, useState} from "react";
 import {IAction, IGlobalContext, IGlobalContextProps, TState} from "./types";
-import {IUserEntity} from "../@types/user/IUserEntity";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage"
 
 export const GlobalContext = createContext({} as IGlobalContext)
 
@@ -25,6 +25,14 @@ function reducer(state: TState, action: IAction) {
 export const ContextProvider = ({children}: IGlobalContextProps) => {
     const [userState, dispatch] = useReducer(reducer, null);
     const [userToken, setUserToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        useAsyncStorage("userToken").getItem().then(res => {
+            if(res){
+                setUserToken(res)
+            }
+        })
+    }, []);
 
     function handleDispatch(data: IAction){
         dispatch({

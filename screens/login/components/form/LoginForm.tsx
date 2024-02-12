@@ -9,6 +9,7 @@ import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
 import {loginUser} from "../../../../api/loginUser";
 import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
+import {useAsyncStorage} from "@react-native-async-storage/async-storage"
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
@@ -33,7 +34,7 @@ function LoginForm() {
                 payload: {...user}
             })
 
-
+            useAsyncStorage("userToken").setItem(access_token)
         }).finally(() => setIsInfoLoading(false))
     }
 
