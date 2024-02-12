@@ -45,7 +45,7 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
             }
 
             <Button styleType={"variant"} onPress={nextGame} isLoading={isInfoLoading}>Não Joguei</Button>
-            <Stars/>
+
         </VStack>
     );
 }

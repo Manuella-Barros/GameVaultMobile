@@ -8,6 +8,8 @@ import CommentsContainer from "./components/commentsContainer/CommentsContainer"
 import {DrawerActions, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
 import {List, MagnifyingGlass} from "phosphor-react-native";
 import {TAppRoutes, TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
+import Stars from "./components/stars/Stars";
+import UserReview from "./components/userReview/UserReview";
 function Home() {
     const navigation = useNavigation<TAppRoutesProps>();
     const [currentGame, setCurrentGame] = useState<GameDto>()
@@ -39,6 +41,7 @@ function Home() {
                 </HStack>
 
                 <GameContainer currentGame={currentGame} setGame={(res) => setCurrentGame(res)}/>
+                <UserReview/>
                 <CommentsContainer/>
             </View>
         </ScrollView>

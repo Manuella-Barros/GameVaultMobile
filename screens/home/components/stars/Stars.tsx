@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import {Star} from "phosphor-react-native";
 import {Button, HStack, useTheme} from "native-base";
 
-function Stars() {
-    const [stars, setStars] = useState<number>(1);
+interface IStarsProps {
+    setStars: (a: number) => void,
+    stars: number
+}
+
+function Stars({setStars, stars}: IStarsProps) {
     const theme = useTheme();
     const starsButton = []
 

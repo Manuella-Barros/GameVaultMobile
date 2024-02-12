@@ -8,8 +8,6 @@ import {InterfaceInputProps} from "native-base/lib/typescript/components/primiti
 import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
 import {loginUser} from "../../../../api/loginUser";
-import {useNavigation} from "@react-navigation/native";
-import {TAppRoutesProps} from "../../../../routes/appRoutes/appRoutes";
 import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
 
 function LoginForm() {
@@ -34,6 +32,8 @@ function LoginForm() {
                 type: ACTION_TYPES.ADD_USER_INFO,
                 payload: {...user}
             })
+
+
         }).finally(() => setIsInfoLoading(false))
     }
 
