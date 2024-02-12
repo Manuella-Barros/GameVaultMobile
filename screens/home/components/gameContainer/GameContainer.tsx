@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Divider, HStack, Text, View, VStack, Button as ButtonNativeBase} from "native-base";
 import Button from "../../../../components/button/Button";
-import Stars from "../stars/Stars";
 import {GameDto} from "../../../../@types/games/game.dto";
 import {getRandomGame} from "../../../../api/getRandomGame";
+import Animated, {useSharedValue} from "react-native-reanimated";
+import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 interface IGameContainerProps {
     currentGame: GameDto,
@@ -12,6 +13,7 @@ interface IGameContainerProps {
 
 function GameContainer({currentGame, setGame}: IGameContainerProps) {
     const [isInfoLoading, setIsInfoLoading] = useState(false);
+
     function nextGame(){
         setIsInfoLoading(true);
 
@@ -22,7 +24,7 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
     }
 
     return (
-        <VStack space={4}>
+        <VStack space={4} >
             <View display={"block"}>
                 <Text color={"white"} fontSize={25}>{currentGame?.name}</Text>
                 <Text backgroundColor={"blue.700"} color={"white"} pb={1}>{currentGame?.first_release_date}</Text>
@@ -40,9 +42,6 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
             <Divider backgroundColor={"red.800"} height={1} borderRadius={2}/>
 
             <Text color={"white"}>{currentGame.summary}</Text>
-            {
-                currentGame?.storyline && <Text color={"white"}>{currentGame.storyline}</Text>
-            }
 
             <Button styleType={"variant"} onPress={nextGame} isLoading={isInfoLoading}>Não Joguei</Button>
 

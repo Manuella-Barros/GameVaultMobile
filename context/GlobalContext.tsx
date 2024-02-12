@@ -41,7 +41,7 @@ export const ContextProvider = ({children}: IGlobalContextProps) => {
         })
     }
 
-    function handleSetUserToken(token: string){
+    function handleSetUserToken(token: string | null){
         setUserToken(token)
     }
 
