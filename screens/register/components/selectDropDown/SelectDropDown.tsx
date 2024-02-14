@@ -2,8 +2,6 @@ import React from 'react';
 import {FormControl, Select, WarningOutlineIcon} from "native-base";
 import {ISelectDropDownProps} from "./types";
 
-
-
 function SelectDropDown({label, placeholder, data, errorMessage, setSelectedItem}: ISelectDropDownProps) {
     return (
         <FormControl my={1} isRequired isInvalid={!!errorMessage}>
@@ -15,12 +13,11 @@ function SelectDropDown({label, placeholder, data, errorMessage, setSelectedItem
                     placeholder={placeholder}
                     mt="1"
                     color={"white"}
-                    onValueChange={(itemSelectedValue) => setSelectedItem(Number(itemSelectedValue))}
+                    onValueChange={(itemSelectedValue) => setSelectedItem(itemSelectedValue)}
             >
                 {
-                    data && data.map((d,i) => <Select.Item key={i} label={d.name} value={d.id.toString()} />)
+                    data && data.map((d,i) => <Select.Item key={i} label={d.name} value={d.name} />)
                 }
-
             </Select>
 
             <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

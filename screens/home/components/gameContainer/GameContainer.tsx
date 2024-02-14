@@ -41,7 +41,7 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
 
             <Divider backgroundColor={"red.800"} height={1} borderRadius={2}/>
 
-            <Text color={"white"}>{currentGame.summary}</Text>
+            <Text color={"white"} numberOfLines={4}>{currentGame.summary}</Text>
 
             <Button styleType={"variant"} onPress={nextGame} isLoading={isInfoLoading}>Não Joguei</Button>
 

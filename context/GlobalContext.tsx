@@ -1,6 +1,7 @@
 import {createContext, useEffect, useReducer, useState} from "react";
 import {IAction, IGlobalContext, IGlobalContextProps, TState} from "./types";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
+import {getUserByID} from "../api/getUserByID";
 
 export const GlobalContext = createContext({} as IGlobalContext)
 
@@ -30,6 +31,17 @@ export const ContextProvider = ({children}: IGlobalContextProps) => {
         useAsyncStorage("userToken").getItem().then(res => {
             if(res){
                 setUserToken(res)
+            }
+        })
+
+        useAsyncStorage("userId").getItem().then(res => {
+            if(res){
+                getUserByID(res).then(res => {
+                    handleDispatch({
+                        type: ACTION_TYPES.ADD_USER_INFO,
+                        payload: {...res}
+                    })
+                })
             }
         })
     }, []);

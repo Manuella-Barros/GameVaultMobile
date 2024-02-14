@@ -14,9 +14,9 @@ export const registerSchema = z.object({
         .min(3, {message: "Mínimo 3 caracteres"})
         .max(18, {message: "Máximo 18 caracteres"}),
     favGenre1:
-        z.coerce.number({required_error: "Campo obrigatório", invalid_type_error: "Campo obrigatório"}),
+        z.string({required_error: "Campo obrigatório", invalid_type_error: "Campo obrigatório"}),
     favGenre2:
-        z.coerce.number({required_error: "Campo obrigatório", invalid_type_error: "Campo obrigatório"}),
+        z.string({required_error: "Campo obrigatório", invalid_type_error: "Campo obrigatório"}),
     favGame:
         z.string({required_error: "Campo obrigatório"})
 })
@@ -30,4 +30,3 @@ export const registerSchema = z.object({
 })
 
 export type TRegisterSchema = z.infer<typeof registerSchema>;
-

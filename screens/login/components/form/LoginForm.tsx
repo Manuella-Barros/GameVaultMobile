@@ -10,6 +10,7 @@ import {inputInfo} from "./arrays";
 import {loginUser} from "../../../../api/loginUser";
 import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
+import {getUserByID} from "../../../../api/getUserByID";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
@@ -22,20 +23,26 @@ function LoginForm() {
     function handleLoginUser(data: TLoginSchema){
         setIsInfoLoading(true)
 
-        loginUser(data).then(res => {
-            toast.show({title: "Logado com sucesso", placement: "top", backgroundColor: "green.500"})
+        loginUser(data)
+            .then(res => {
+                toast.show({title: "Logado com sucesso", placement: "top", backgroundColor: "green.500"})
 
-            const {access_token, user} = res;
+                handleSetUserToken(res.access_token);
 
-            handleSetUserToken(access_token);
+                useAsyncStorage("userToken").setItem(res.access_token)
+                useAsyncStorage("userId").setItem(res.userID)
 
-            handleDispatch({
-                type: ACTION_TYPES.ADD_USER_INFO,
-                payload: {...user}
+                return res.userID
             })
-
-            useAsyncStorage("userToken").setItem(access_token)
-        }).finally(() => setIsInfoLoading(false))
+            .then((id) => {
+                getUserByID(id).then(res => {
+                    handleDispatch({
+                        type: ACTION_TYPES.ADD_USER_INFO,
+                        payload: {...res}
+                    })
+                })
+            })
+            .finally(() => setIsInfoLoading(false))
     }
 
     return (

@@ -7,18 +7,29 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 import SelectDropDown from "../selectDropDown/SelectDropDown";
 import {registerSchema, TRegisterSchema} from "../../../../@types/user/register/registerSchema";
-import {genres, inputInfo} from "./arrays";
+import {inputInfo} from "./arrays";
 import {createUser} from "../../../../api/createUser";
 import {useNavigation} from "@react-navigation/native";
 import {TAuthRoutesProps} from "../../../../routes/authRoutes/authRoutes";
+import {getAllGenres} from "../../../../api/getAllGenres";
+import {IGenres} from "../../../../@types/user/register/IGenres";
 
 function RegisterForm() {
     const {setValue, ...methods} = useForm<TRegisterSchema>({
         resolver: zodResolver(registerSchema),
     })
-    const navigate = useNavigation<TAuthRoutesProps>();
     const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
+    const [genres, setGenres] = useState<IGenres[] | null>(null)
+    const navigate = useNavigation<TAuthRoutesProps>();
     const toast = useToast();
+
+    useEffect(() => {
+        getAllGenres().then(res => {
+            if(res){
+                setGenres(res)
+            }
+        })
+    }, []);
 
     function handleRegisterUser(data: TRegisterSchema){
         setIsInfoLoading(true);

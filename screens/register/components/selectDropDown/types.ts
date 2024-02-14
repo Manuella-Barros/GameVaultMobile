@@ -5,5 +5,5 @@ export interface ISelectDropDownProps {
     placeholder: string,
     data: null | IGenres[],
     errorMessage: null | undefined | string,
-    setSelectedItem: (id: number)=> void,
+    setSelectedItem: (id: string)=> void,
 }

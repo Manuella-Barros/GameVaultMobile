@@ -6,6 +6,7 @@ import {useNavigation} from "@react-navigation/native";
 import CustomDrawerContent from "./CustomDrawerContent";
 import {IUser} from "../../@types/user/IUser";
 import ReviewsContainer from "../../screens/reviews/ReviewsContainer";
+import EditProfile from "../../screens/editProfile/EditProfile";
 
 export type TAppRoutes = {
     home:  undefined
@@ -30,7 +31,7 @@ function AppRoutes() {
         >
             <Screen name={"home"} component={Home} options={{title: "Home"}}/>
             <Screen name={"reviews"} component={ReviewsContainer} options={{title: "Avaliações"}}/>
-            <Screen name={"profile"} component={Home} options={{title: "Perfil"}}/>
+            <Screen name={"profile"} component={EditProfile} options={{title: "Editar Perfil"}}/>
         </Navigator>
     );
 }
