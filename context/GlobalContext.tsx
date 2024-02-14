@@ -1,7 +1,7 @@
 import {createContext, useEffect, useReducer, useState} from "react";
 import {IAction, IGlobalContext, IGlobalContextProps, TState} from "./types";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
-import {getUserByID} from "../api/getUserByID";
+import {getUserByID} from "../api/GET/getUserByID";
 
 export const GlobalContext = createContext({} as IGlobalContext)
 

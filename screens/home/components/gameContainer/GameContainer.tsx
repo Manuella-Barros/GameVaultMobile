@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Divider, HStack, Text, View, VStack, Button as ButtonNativeBase} from "native-base";
 import Button from "../../../../components/button/Button";
 import {GameDto} from "../../../../@types/games/game.dto";
-import {getRandomGame} from "../../../../api/getRandomGame";
+import {getRandomGame} from "../../../../api/GET/getRandomGame";
 import Animated, {useSharedValue} from "react-native-reanimated";
 import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
@@ -39,7 +39,7 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
                 </Text>
             </View>
 
-            <Divider backgroundColor={"red.800"} height={1} borderRadius={2}/>
+            <Divider backgroundColor={"red.800"} height={1} w={'1/6'} borderRadius={2}/>
 
             <Text color={"white"} numberOfLines={4}>{currentGame.summary}</Text>
 

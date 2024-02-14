@@ -1,14 +1,13 @@
 import {VStack, ScrollView, HStack, View, Button} from "native-base";
 import BackgroundGradientImage from "../../components/backgroundGradientImage/BackgroundGradientImage";
 import React, {useEffect, useState} from "react";
-import {getRandomGame} from "../../api/getRandomGame";
+import {getRandomGame} from "../../api/GET/getRandomGame";
 import {GameDto} from "../../@types/games/game.dto";
 import GameContainer from "./components/gameContainer/GameContainer";
 import CommentsContainer from "./components/commentsContainer/CommentsContainer";
-import {DrawerActions, RouteProp, useNavigation, useRoute} from "@react-navigation/native";
+import {DrawerActions, useNavigation} from "@react-navigation/native";
 import {List, MagnifyingGlass} from "phosphor-react-native";
-import {TAppRoutes, TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
-import Stars from "./components/stars/Stars";
+import {TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
 import UserReview from "./components/userReview/UserReview";
 function Home() {
     const navigation = useNavigation<TAppRoutesProps>();
@@ -41,7 +40,7 @@ function Home() {
                 </HStack>
 
                 <GameContainer currentGame={currentGame} setGame={(res) => setCurrentGame(res)}/>
-                <UserReview/>
+                <UserReview gameID={currentGame.id} setGame={(res) => setCurrentGame(res)}/>
                 <CommentsContainer/>
             </View>
         </ScrollView>

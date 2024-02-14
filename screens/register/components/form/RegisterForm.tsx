@@ -8,10 +8,10 @@ import {InterfaceInputProps} from "native-base/lib/typescript/components/primiti
 import SelectDropDown from "../selectDropDown/SelectDropDown";
 import {registerSchema, TRegisterSchema} from "../../../../@types/user/register/registerSchema";
 import {inputInfo} from "./arrays";
-import {createUser} from "../../../../api/createUser";
+import {createUser} from "../../../../api/POST/createUser";
 import {useNavigation} from "@react-navigation/native";
 import {TAuthRoutesProps} from "../../../../routes/authRoutes/authRoutes";
-import {getAllGenres} from "../../../../api/getAllGenres";
+import {getAllGenres} from "../../../../api/GET/getAllGenres";
 import {IGenres} from "../../../../@types/user/register/IGenres";
 
 function RegisterForm() {

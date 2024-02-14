@@ -1,5 +1,5 @@
 export interface GameDto {
-    id: string,
+    id: number,
     cover: ICover,
     name: string,
     first_release_date: string,

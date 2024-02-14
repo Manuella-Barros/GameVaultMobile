@@ -7,10 +7,10 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {InterfaceInputProps} from "native-base/lib/typescript/components/primitives/Input/types";
 import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
-import {loginUser} from "../../../../api/loginUser";
+import {loginUser} from "../../../../api/POST/loginUser";
 import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
-import {getUserByID} from "../../../../api/getUserByID";
+import {getUserByID} from "../../../../api/GET/getUserByID";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({

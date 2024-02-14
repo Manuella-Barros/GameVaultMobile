@@ -41,6 +41,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
                             <DrawerItem label={(props) => <Text color={"white"}>{options.title}</Text>}
                                         onPress={() => navigation.navigate(route.name)}
                                         icon={() => <View marginRight={"-5"} marginLeft={"-3"}><Gear color={"white"}/></View>}
+                                        key={route.key}
                             />
                         )
                     })

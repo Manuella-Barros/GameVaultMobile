@@ -1,6 +1,6 @@
-import {TLoginSchema} from "../@types/user/login/types";
-import {axiosAPI} from "./axios.config";
-import {IToken} from "../@types/user/token";
+import {TLoginSchema} from "../../@types/user/login/types";
+import {axiosAPI} from "../axios.config";
+import {IToken} from "../../@types/user/token";
 
 type TLoginUser = IToken & {
         userID: string
