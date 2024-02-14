@@ -8,7 +8,7 @@ import {InterfaceInputProps} from "native-base/lib/typescript/components/primiti
 import {loginSchema, TLoginSchema} from "../../../../@types/user/login/types";
 import {inputInfo} from "./arrays";
 import {loginUser} from "../../../../api/POST/loginUser";
-import {ACTION_TYPES, GlobalContext} from "../../../../context/GlobalContext";
+import {ACTION_TYPES, GlobalContext} from "../../../../context/globalContext/GlobalContext";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
 import {getUserByID} from "../../../../api/GET/getUserByID";
 

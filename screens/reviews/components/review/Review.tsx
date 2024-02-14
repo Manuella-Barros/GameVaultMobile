@@ -1,6 +1,6 @@
 import {HStack, Image, Text, VStack} from "native-base";
 import game from "../../../../assets/images/gameBackground-1.jpg"
-import Stars from "../stars/Stars";
+import Stars from "../../../../components/stars/Stars";
 
 function Review() {
     return (
@@ -12,7 +12,9 @@ function Review() {
                     Valorant
                 </Text>
 
-                <Stars rating={3}/>
+                <HStack>
+                    <Stars stars={3} size={25}/>
+                </HStack>
 
                 <Text color={"gray.400"}>
                     Avaliado em 11/02/2024

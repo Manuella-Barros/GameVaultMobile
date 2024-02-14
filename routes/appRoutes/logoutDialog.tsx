@@ -1,6 +1,6 @@
 import {AlertDialog, Button, Center} from "native-base";
 import {useContext, useRef} from "react";
-import {ACTION_TYPES, GlobalContext} from "../../context/GlobalContext";
+import {ACTION_TYPES, GlobalContext} from "../../context/globalContext/GlobalContext";
 
 interface ILogoutDialogProps {
     isOpen: boolean,

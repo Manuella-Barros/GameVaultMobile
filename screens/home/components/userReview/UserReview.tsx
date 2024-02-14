@@ -1,46 +1,45 @@
-import Stars from "../stars/Stars";
 import React, {useContext, useEffect, useState} from "react";
-import {TextArea, useTheme, useToast, View} from "native-base";
+import {HStack, TextArea, useTheme, useToast, View} from "native-base";
 import Button from "../../../../components/button/Button";
 import {createRating} from "../../../../api/POST/createRating";
-import {GlobalContext} from "../../../../context/GlobalContext";
-import {GameDto} from "../../../../@types/games/game.dto";
-import {getRandomGame} from "../../../../api/GET/getRandomGame";
+import {GlobalContext} from "../../../../context/globalContext/GlobalContext";
+import Stars from "../../../../components/stars/Stars";
+import {UserCommentContext} from "../../../../context/userCommentContext/UserCommentContext";
 
 interface IUserReviewProps {
     gameID: number,
-    setGame: (a: GameDto) => void,
+    nextGame: () => Promise<void>,
 }
 
-function UserReview({gameID, setGame}: IUserReviewProps) {
+function UserReview({gameID, nextGame}: IUserReviewProps) {
     const theme = useTheme();
-    const [starsRating, setStarsRating] = useState<number>(1);
     const [commentText, setCommentText] = useState<string | null>(null);
-    const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false);
     const toast = useToast();
     const {userState} = useContext(GlobalContext);
+    const {setIsCommentLoading, isCommentLoading, isGameRated, starsRating, setStarsRating, isNextGameLoading} = useContext(UserCommentContext)
 
-    function handleUserReview(){
+    async function handleUserReview(){
+        setIsCommentLoading(true)
 
-        if(userState){
-            setIsInfoLoading(true)
-
-            createRating({stars: starsRating, userID: userState.id, gameID: gameID }).then(res => {
-                toast.show({title: "Avaliação realizada", placement: "top", backgroundColor: "green.500"})
-                setStarsRating(1);
-                nextGame().then(r => setIsInfoLoading(false));
-            })
+        if(userState && !isGameRated){
+            await createRating({stars: starsRating, userID: userState.id, gameID: gameID }).then(res => console.log(res));
+            toast.show({title: "Avaliação realizada", placement: "top", backgroundColor: "green.500"})
         }
 
-    }
-
-    async function nextGame(){
-        getRandomGame().then(res => { setGame(res) })
+        setIsCommentLoading(false)
     }
 
     return (
         <View my={5} >
-            <Stars setStars={(star) => setStarsRating(star)} stars={starsRating}/>
+            <HStack justifyContent={"center"}>
+                {
+                    (!isGameRated && !isNextGameLoading) && <Stars setStars={(star) => setStarsRating(star)} stars={starsRating} size={40}/>
+                }
+
+                {
+                    (isGameRated || isNextGameLoading) && <Stars stars={starsRating} size={40} isStarsInvalid={true}/>
+                }
+            </HStack>
 
             <TextArea mt={5}
                       autoCompleteType={undefined}
@@ -52,10 +51,12 @@ function UserReview({gameID, setGame}: IUserReviewProps) {
                       padding={5}
                       variant={"unstyled"}
                       backgroundColor={"gray.800"}
+                      isDisabled={isCommentLoading || isNextGameLoading}
             />
 
             <Button onPress={handleUserReview}
-                    isLoading={isInfoLoading}
+                    isLoading={isCommentLoading}
+                    isDisabled={isNextGameLoading}
             >Avaliar</Button>
         </View>
     );

@@ -6,7 +6,7 @@ interface IStarsProps {
     rating: number
 }
 
-function Stars({rating}: IStarsProps) {
+function StaticStars({rating}: IStarsProps) {
     const theme = useTheme();
     const stars = []
 
@@ -23,4 +23,4 @@ function Stars({rating}: IStarsProps) {
     );
 }
 
-export default Stars;
+export default StaticStars;

@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import {IUserEntity} from "../@types/user/IUserEntity";
+import {IUserEntity} from "../../@types/user/IUserEntity";
 import {ACTION_TYPES} from "./GlobalContext";
 
 export interface IGlobalContextProps {

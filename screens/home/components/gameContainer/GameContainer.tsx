@@ -1,26 +1,35 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Divider, HStack, Text, View, VStack, Button as ButtonNativeBase} from "native-base";
 import Button from "../../../../components/button/Button";
 import {GameDto} from "../../../../@types/games/game.dto";
 import {getRandomGame} from "../../../../api/GET/getRandomGame";
 import Animated, {useSharedValue} from "react-native-reanimated";
 import {Gesture, GestureDetector} from "react-native-gesture-handler";
+import {UserCommentContext} from "../../../../context/userCommentContext/UserCommentContext";
 
 interface IGameContainerProps {
     currentGame: GameDto,
-    setGame: (a: GameDto) => void,
+    nextGame: () => Promise<void>,
 }
 
-function GameContainer({currentGame, setGame}: IGameContainerProps) {
+function GameContainer({currentGame, nextGame}: IGameContainerProps) {
     const [isInfoLoading, setIsInfoLoading] = useState(false);
+    const {isCommentLoading, setIsGameRated, isGameRated, setStarsRating, setIsNextGameLoading} = useContext(UserCommentContext)
 
-    function nextGame(){
+    useEffect(() => {
+        if(isCommentLoading){
+            setIsGameRated(true)
+        }
+    }, [isCommentLoading]);
+
+    async function handleButton(){
+        setIsNextGameLoading(true)
         setIsInfoLoading(true);
-
-        getRandomGame().then(res => {
-            setGame(res);
-            setIsInfoLoading(false)
-        })
+        await nextGame()
+        setIsInfoLoading(false)
+        setIsGameRated(false)
+        setStarsRating(1)
+        setIsNextGameLoading(false)
     }
 
     return (
@@ -43,7 +52,13 @@ function GameContainer({currentGame, setGame}: IGameContainerProps) {
 
             <Text color={"white"} numberOfLines={4}>{currentGame.summary}</Text>
 
-            <Button styleType={"variant"} onPress={nextGame} isLoading={isInfoLoading}>Não Joguei</Button>
+            <Button styleType={"variant"}
+                    onPress={handleButton}
+                    isLoading={isInfoLoading}
+                    isDisabled={isCommentLoading}
+            >
+                {!isGameRated ? "Não joguei" : "Próximo jogo"}
+            </Button>
 
         </VStack>
     );

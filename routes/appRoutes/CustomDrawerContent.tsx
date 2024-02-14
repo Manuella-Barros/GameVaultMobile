@@ -9,7 +9,7 @@ import {Gear} from "phosphor-react-native";
 import {Button, Divider, HStack, Image, Text, View, VStack} from "native-base";
 import userPlaceholder from "../../assets/images/userPlaceholder.jpg"
 import ProfileImage from "../../components/profileImage/ProfileImage";
-import {GlobalContext} from "../../context/GlobalContext";
+import {GlobalContext} from "../../context/globalContext/GlobalContext";
 import {LogoutDialog} from "./logoutDialog";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {

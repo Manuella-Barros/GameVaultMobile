@@ -9,19 +9,25 @@ import {DrawerActions, useNavigation} from "@react-navigation/native";
 import {List, MagnifyingGlass} from "phosphor-react-native";
 import {TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
 import UserReview from "./components/userReview/UserReview";
+import {UserCommentContextProvider} from "../../context/userCommentContext/UserCommentContext";
+
 function Home() {
     const navigation = useNavigation<TAppRoutesProps>();
-    const [currentGame, setCurrentGame] = useState<GameDto>()
+    const [currentGame, setCurrentGame] = useState<GameDto>();
 
     useEffect(() => {
-        getRandomGame().then(res => setCurrentGame(res))
+        nextGame()
     }, []);
 
-
+    async function nextGame(){
+        const game = await getRandomGame()
+        setCurrentGame(game)
+    }
     if(!currentGame)
         return <></>
 
     return (
+        <UserCommentContextProvider>
         <VStack backgroundColor={"gray.900"} height={"full"}>
         <ScrollView>
             {
@@ -39,12 +45,15 @@ function Home() {
                     </Button>
                 </HStack>
 
-                <GameContainer currentGame={currentGame} setGame={(res) => setCurrentGame(res)}/>
-                <UserReview gameID={currentGame.id} setGame={(res) => setCurrentGame(res)}/>
+                <GameContainer currentGame={currentGame} nextGame={() => nextGame()}/>
+
+                <UserReview gameID={currentGame.id} nextGame={() => nextGame()}/>
+
                 <CommentsContainer/>
             </View>
         </ScrollView>
         </VStack>
+        </UserCommentContextProvider>
     );
 }
 
