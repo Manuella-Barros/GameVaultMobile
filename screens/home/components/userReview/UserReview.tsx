@@ -5,6 +5,7 @@ import {createRating} from "../../../../api/POST/createRating";
 import {GlobalContext} from "../../../../context/globalContext/GlobalContext";
 import Stars from "../../../../components/stars/Stars";
 import {UserCommentContext} from "../../../../context/userCommentContext/UserCommentContext";
+import {createComment} from "../../../../api/POST/createComment";
 
 interface IUserReviewProps {
     gameID: number,
@@ -13,7 +14,7 @@ interface IUserReviewProps {
 
 function UserReview({gameID, nextGame}: IUserReviewProps) {
     const theme = useTheme();
-    const [commentText, setCommentText] = useState<string | null>(null);
+    const [commentText, setCommentText] = useState<string | undefined>(undefined);
     const toast = useToast();
     const {userState} = useContext(GlobalContext);
     const {setIsCommentLoading, isCommentLoading, isGameRated, starsRating, setStarsRating, isNextGameLoading} = useContext(UserCommentContext)
@@ -21,10 +22,20 @@ function UserReview({gameID, nextGame}: IUserReviewProps) {
     async function handleUserReview(){
         setIsCommentLoading(true)
 
-        if(userState && !isGameRated){
-            await createRating({stars: starsRating, userID: userState.id, gameID: gameID });
-            toast.show({title: "Avaliação realizada", placement: "top", backgroundColor: "green.500"})
+        if(!userState){
+            return
         }
+
+        if(!isGameRated){
+            await createRating({stars: starsRating, userID: userState.id, gameID: gameID });
+        }
+
+        if(commentText){
+            await createComment({userID: userState.id, text: commentText, gameID: gameID, dislikes: 0, likes: 0})
+            setCommentText(undefined)
+        }
+
+        toast.show({title: "Avaliação realizada", placement: "top", backgroundColor: "green.500"})
 
         setIsCommentLoading(false)
     }
@@ -48,6 +59,7 @@ function UserReview({gameID, nextGame}: IUserReviewProps) {
                       color={"white"}
                       placeholderTextColor={theme.colors["gray"]["500"]}
                       onChangeText={(value) => setCommentText(value)}
+                      value={commentText}
                       padding={5}
                       variant={"unstyled"}
                       backgroundColor={"gray.800"}

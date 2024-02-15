@@ -36,15 +36,10 @@ function RegisterForm() {
 
         const {passwordConfirmation, ...userInfo} = data;
         createUser(userInfo).then(res => {
-            console.log(res);
             toast.show({title: "Cadastrado com sucesso", placement: "top", backgroundColor: "green.500"})
             navigate.navigate("login");
         }).finally(() => setIsInfoLoading(false))
     }
-
-    useEffect(() => {
-        console.log(methods.formState.errors)
-    }, [methods.formState.errors])
 
     return (
         <VStack m={10}>
