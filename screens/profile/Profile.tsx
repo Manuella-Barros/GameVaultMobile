@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from "native-base";
 
-function EditProfile() {
+function Profile() {
     return (
         <View>
             <Text color={"white"}>
@@ -11,4 +11,4 @@ function EditProfile() {
     );
 }
 
-export default EditProfile;
+export default Profile;

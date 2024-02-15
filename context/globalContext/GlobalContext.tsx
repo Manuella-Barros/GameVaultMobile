@@ -1,6 +1,6 @@
 import {createContext, useEffect, useReducer, useState} from "react";
 import {IAction, IGlobalContext, IGlobalContextProps, TState} from "./types";
-import {useAsyncStorage} from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {getUserByID} from "../../api/GET/getUserByID";
 
 export const GlobalContext = createContext({} as IGlobalContext)
@@ -28,22 +28,7 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
     const [userToken, setUserToken] = useState<string | null>(null);
 
     useEffect(() => {
-        useAsyncStorage("userToken").getItem().then(res => {
-            if(res){
-                setUserToken(res)
-            }
-        })
-
-        useAsyncStorage("userId").getItem().then(res => {
-            if(res){
-                getUserByID(res).then(res => {
-                    handleDispatch({
-                        type: ACTION_TYPES.ADD_USER_INFO,
-                        payload: {...res}
-                    })
-                })
-            }
-        })
+        getStorageItems()
     }, []);
 
     function handleDispatch(data: IAction){
@@ -53,12 +38,45 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
         })
     }
 
-    function handleSetUserToken(token: string | null){
-        setUserToken(token)
+    async function handleSetUserToken(token: string | null){
+        setUserToken(token);
+
+        if(token)
+            await AsyncStorage.setItem("userToken", token)
+        else
+            await AsyncStorage.removeItem("userToken")
+    }
+
+    async function storageUserID(id: string | null){
+        if(id)
+            await AsyncStorage.setItem("userID", id)
+        else
+            await AsyncStorage.removeItem("userID")
+        }
+
+    function getStorageItems(){
+        AsyncStorage.getItem("userID")
+            .then(res => {
+                if(res){
+                    setUserToken(res)
+                }
+            })
+
+        AsyncStorage.getItem("userId")
+            .then(res => {
+                if(res){
+                    getUserByID(res).then(res => {
+                        handleDispatch({
+                            type: ACTION_TYPES.ADD_USER_INFO,
+                            payload: {...res}
+                        })
+                    })
+                }
+            })
     }
 
     return (
-        <GlobalContext.Provider value={{handleSetUserToken, userToken, userState, handleDispatch}}>
+        <GlobalContext.Provider value={{storageUserID, userState, handleDispatch, userToken, handleSetUserToken}}>
             {children}
         </GlobalContext.Provider>
     )

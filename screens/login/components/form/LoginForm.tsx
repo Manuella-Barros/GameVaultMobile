@@ -16,7 +16,7 @@ function LoginForm() {
     const methods = useForm<TLoginSchema>({
         resolver: zodResolver(loginSchema),
     });
-    const {handleSetUserToken, handleDispatch} = useContext(GlobalContext);
+    const {handleSetUserToken, handleDispatch, storageUserID} = useContext(GlobalContext);
     const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
     const toast = useToast();
 
@@ -26,12 +26,8 @@ function LoginForm() {
         loginUser(data)
             .then(res => {
                 toast.show({title: "Logado com sucesso", placement: "top", backgroundColor: "green.500"})
-
                 handleSetUserToken(res.access_token);
-
-                useAsyncStorage("userToken").setItem(res.access_token)
-                useAsyncStorage("userId").setItem(res.userID)
-
+                storageUserID(res.userID)
                 return res.userID
             })
             .then((id) => {

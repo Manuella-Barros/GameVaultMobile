@@ -11,6 +11,7 @@ export interface IGlobalContext {
     userToken: string | null,
     userState: IUserEntity| null,
     handleDispatch: (data: IAction) => void,
+    storageUserID: (id: string | null) => void
 }
 
 export interface IAction {
