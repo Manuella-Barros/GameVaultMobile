@@ -22,7 +22,7 @@ function UserReview({gameID, nextGame}: IUserReviewProps) {
         setIsCommentLoading(true)
 
         if(userState && !isGameRated){
-            await createRating({stars: starsRating, userID: userState.id, gameID: gameID }).then(res => console.log(res));
+            await createRating({stars: starsRating, userID: userState.id, gameID: gameID });
             toast.show({title: "Avaliação realizada", placement: "top", backgroundColor: "green.500"})
         }
 

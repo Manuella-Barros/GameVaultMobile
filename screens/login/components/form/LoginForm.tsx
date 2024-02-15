@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {FlatList, Text, useToast, VStack} from "native-base";
 import {FormProvider, useForm} from "react-hook-form";
 import Input, {TInputName} from "../../../../components/input/Input";
@@ -42,6 +42,7 @@ function LoginForm() {
                     })
                 })
             })
+            .catch(e => methods.setError("password", { message: e.message }) )
             .finally(() => setIsInfoLoading(false))
     }
 
