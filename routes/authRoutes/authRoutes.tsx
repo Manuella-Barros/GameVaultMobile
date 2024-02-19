@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     createNativeStackNavigator,
     NativeStackNavigationProp, NativeStackScreenProps,
@@ -7,8 +7,9 @@ import Login from "../../screens/login/Login";
 import Register from "../../screens/register/Register";
 
 type TAuthRoutes = {
-    login: undefined,
+    login: undefined
     register: undefined
+    loading: undefined
 }
 
 export type TAuthRoutesProps = NativeStackNavigationProp<TAuthRoutes>
@@ -20,6 +21,7 @@ function AuthRoutes() {
         <Navigator screenOptions={{headerShown: false}}>
             <Screen name={"login"} component={Login}/>
             <Screen name={"register"} component={Register}/>
+            <Screen name={"loading"} component={Login}/>
         </Navigator>
     );
 }

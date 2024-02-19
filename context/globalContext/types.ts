@@ -7,11 +7,12 @@ export interface IGlobalContextProps {
 }
 
 export interface IGlobalContext {
-    handleSetUserToken: (token: string | null) => void,
+    handleSetUserToken: (token: string | null) => Promise<void>,
     userToken: string | null,
     userState: IUserEntity| null,
     handleDispatch: (data: IAction) => void,
-    storageUserID: (id: string | null) => void
+    storageUserID: (id: string | null) => Promise<void>
+    getStorageItems: () => Promise<void>
 }
 
 export interface IAction {

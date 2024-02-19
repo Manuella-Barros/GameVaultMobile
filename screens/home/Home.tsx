@@ -1,6 +1,6 @@
 import {VStack, ScrollView, HStack, View, Button} from "native-base";
 import BackgroundGradientImage from "../../components/backgroundGradientImage/BackgroundGradientImage";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {getRandomGame} from "../../api/GET/getRandomGame";
 import {GameDto} from "../../@types/games/game.dto";
 import GameContainer from "./components/gameContainer/GameContainer";
@@ -10,6 +10,8 @@ import {List, MagnifyingGlass} from "phosphor-react-native";
 import {TAppRoutesProps} from "../../routes/appRoutes/appRoutes";
 import UserReview from "./components/userReview/UserReview";
 import {UserCommentContextProvider} from "../../context/userCommentContext/UserCommentContext";
+import Loading from "../../components/loading/Loading";
+import {GlobalContext} from "../../context/globalContext/GlobalContext";
 
 function Home() {
     const navigation = useNavigation<TAppRoutesProps>();
@@ -23,10 +25,10 @@ function Home() {
         const game = await getRandomGame()
         setCurrentGame(game)
     }
-    if(!currentGame)
-        return <></>
 
-    return (
+    return !currentGame
+    ? <Loading/>
+    : (
         <UserCommentContextProvider>
         <VStack backgroundColor={"gray.900"} height={"full"}>
         <ScrollView>

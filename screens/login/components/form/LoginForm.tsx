@@ -11,6 +11,9 @@ import {loginUser} from "../../../../api/POST/loginUser";
 import {ACTION_TYPES, GlobalContext} from "../../../../context/globalContext/GlobalContext";
 import {useAsyncStorage} from "@react-native-async-storage/async-storage"
 import {getUserByID} from "../../../../api/GET/getUserByID";
+import Loading from "../../../../components/loading/Loading";
+import {useNavigation} from "@react-navigation/native";
+import {TAuthRoutesProps} from "../../../../routes/authRoutes/authRoutes";
 
 function LoginForm() {
     const methods = useForm<TLoginSchema>({
@@ -20,9 +23,7 @@ function LoginForm() {
     const [isInfoLoading, setIsInfoLoading] = useState<boolean>(false)
     const toast = useToast();
 
-    function handleLoginUser(data: TLoginSchema){
-        setIsInfoLoading(true)
-
+    async function handleLoginUser(data: TLoginSchema){
         loginUser(data)
             .then(res => {
                 toast.show({title: "Logado com sucesso", placement: "top", backgroundColor: "green.500"})

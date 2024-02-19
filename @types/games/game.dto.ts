@@ -5,7 +5,6 @@ export interface GameDto {
     first_release_date: string,
     genres: IIdName[],
     platforms: IIdName[],
-    storyline: string
     summary?: string,
 }
 

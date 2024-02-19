@@ -38,7 +38,7 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
         })
     }
 
-    async function handleSetUserToken(token: string | null){
+    async function handleSetUserToken(token: string | null): Promise<void>{
         setUserToken(token);
 
         if(token)
@@ -47,36 +47,49 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
             await AsyncStorage.removeItem("userToken")
     }
 
-    async function storageUserID(id: string | null){
+    async function storageUserID(id: string | null): Promise<void>{
         if(id)
             await AsyncStorage.setItem("userID", id)
         else
             await AsyncStorage.removeItem("userID")
+    }
+
+    async function getStorageItems(): Promise<void>{
+        const token = await AsyncStorage.getItem("userToken")
+        if(token)
+            setUserToken(token)
+
+        const id = await AsyncStorage.getItem("userID")
+        if(id){
+            getUserByID(id).then(res => {
+                                handleDispatch({
+                                    type: ACTION_TYPES.ADD_USER_INFO,
+                                    payload: {...res}
+                                })
+                            })
         }
-
-    function getStorageItems(){
-        AsyncStorage.getItem("userID")
-            .then(res => {
-                if(res){
-                    setUserToken(res)
-                }
-            })
-
-        AsyncStorage.getItem("userId")
-            .then(res => {
-                if(res){
-                    getUserByID(res).then(res => {
-                        handleDispatch({
-                            type: ACTION_TYPES.ADD_USER_INFO,
-                            payload: {...res}
-                        })
-                    })
-                }
-            })
+        // AsyncStorage.getItem("userToken")
+        //     .then(res => {
+        //         if(res){
+        //             setUserToken(res)
+        //         }
+        //     })
+        //
+        // AsyncStorage.getItem("userID")
+        //     .then(res => {
+        //         if(res){
+        //             getUserByID(res).then(res => {
+        //                 handleDispatch({
+        //                     type: ACTION_TYPES.ADD_USER_INFO,
+        //                     payload: {...res}
+        //                 })
+        //             })
+        //         }
+        //     })
     }
 
     return (
-        <GlobalContext.Provider value={{storageUserID, userState, handleDispatch, userToken, handleSetUserToken}}>
+        <GlobalContext.Provider value={{storageUserID, userState, handleDispatch, userToken, handleSetUserToken, getStorageItems}}>
             {children}
         </GlobalContext.Provider>
     )

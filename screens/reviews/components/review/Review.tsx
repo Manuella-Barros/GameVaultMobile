@@ -1,23 +1,21 @@
 import {HStack, Image, Text, VStack} from "native-base";
-import game from "../../../../assets/images/gameBackground-1.jpg"
 import Stars from "../../../../components/stars/Stars";
+import {RatingGameDto} from "../../../../@types/user/rating/TRating";
 
-function Review() {
+function Review({game, rating}: RatingGameDto) {
     return (
-        <HStack height={150} backgroundColor={"gray.800"} borderRadius={10}>
-            <Image source={game} alt={"Capa do jogo"} width={"40%"} height={"100%"}/>
+        <HStack height={150} backgroundColor={"gray.800"} borderRadius={10} minHeight={180} space={4} boxSize={"borderBox"}>
+            <Image source={{uri: game.cover.url}} alt={"Capa do jogo"} width={"40%"} height={"100%"}/>
 
-            <VStack justifyContent={"space-between"} p={4}>
-                <Text color={"white"} fontSize={25}>
-                    Valorant
-                </Text>
+            <VStack justifyContent={"space-between"} py={4} flexShrink={1} space={2}>
+                <Text color={"white"} fontSize={25}>{game.name}</Text>
 
                 <HStack>
-                    <Stars stars={3} size={25}/>
+                    <Stars stars={rating.stars} size={25}/>
                 </HStack>
 
                 <Text color={"gray.400"}>
-                    Avaliado em 11/02/2024
+                    Avaliado em {new Date(rating.updatedAt).toLocaleDateString("pt-BR")}
                 </Text>
             </VStack>
         </HStack>

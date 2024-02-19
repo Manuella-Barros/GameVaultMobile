@@ -1,10 +1,8 @@
-import React from 'react';
-import {Center, Text, useTheme, View} from "native-base";
+import React, {useEffect} from 'react';
+import {useTheme} from "native-base";
 import {createDrawerNavigator, DrawerNavigationProp} from "@react-navigation/drawer";
 import Home from "../../screens/home/Home";
-import {useNavigation} from "@react-navigation/native";
 import CustomDrawerContent from "./CustomDrawerContent";
-import {IUser} from "../../@types/user/IUser";
 import ReviewsContainer from "../../screens/reviews/ReviewsContainer";
 import Profile from "../../screens/profile/Profile";
 
@@ -17,7 +15,7 @@ export type TAppRoutes = {
 export type TAppRoutesProps = DrawerNavigationProp<TAppRoutes>
 
 function AppRoutes() {
-    const {Screen, Navigator} = createDrawerNavigator<TAppRoutes>();
+    const {Screen, Navigator} = createDrawerNavigator<TAppRoutes>()
     const theme = useTheme();
 
     return (
