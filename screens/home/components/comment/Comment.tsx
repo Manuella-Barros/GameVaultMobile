@@ -2,7 +2,6 @@ import React from 'react';
 import {Divider, HStack, Text, View, VStack} from "native-base";
 import ProfileImage from "../../../../components/profileImage/ProfileImage";
 import userPlaceholder from "../../../../assets/images/userPlaceholder.jpg"
-import {ThumbsDown, ThumbsUp} from "phosphor-react-native";
 import LikeDislike from "../likeDislike/LikeDislike";
 
 function Comment() {
@@ -23,7 +22,7 @@ function Comment() {
                         <Text color={"gray.300"} fontSize={13} fontStyle={"italic"}>Shooter</Text>
                     </HStack>
 
-                <LikeDislike/>
+                {/*<LikeDislike/>*/}
                 </HStack>
             </View>
         </HStack>

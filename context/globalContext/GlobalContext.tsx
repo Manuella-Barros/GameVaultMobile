@@ -27,9 +27,6 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
     const [userState, dispatch] = useReducer(reducer, null);
     const [userToken, setUserToken] = useState<string | null>(null);
 
-    useEffect(() => {
-        getStorageItems()
-    }, []);
 
     function handleDispatch(data: IAction){
         dispatch({
@@ -56,10 +53,12 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
 
     async function getStorageItems(): Promise<void>{
         const token = await AsyncStorage.getItem("userToken")
+
         if(token)
             setUserToken(token)
 
         const id = await AsyncStorage.getItem("userID")
+
         if(id){
             getUserByID(id).then(res => {
                                 handleDispatch({
@@ -68,24 +67,6 @@ export const GlobalContextProvider = ({children}: IGlobalContextProps) => {
                                 })
                             })
         }
-        // AsyncStorage.getItem("userToken")
-        //     .then(res => {
-        //         if(res){
-        //             setUserToken(res)
-        //         }
-        //     })
-        //
-        // AsyncStorage.getItem("userID")
-        //     .then(res => {
-        //         if(res){
-        //             getUserByID(res).then(res => {
-        //                 handleDispatch({
-        //                     type: ACTION_TYPES.ADD_USER_INFO,
-        //                     payload: {...res}
-        //                 })
-        //             })
-        //         }
-        //     })
     }
 
     return (

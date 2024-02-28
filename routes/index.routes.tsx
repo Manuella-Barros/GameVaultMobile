@@ -6,7 +6,7 @@ import {GlobalContext} from "../context/globalContext/GlobalContext";
 import Loading from "../components/loading/Loading";
 
 function IndexRoutes() {
-    const {userToken, getStorageItems} = useContext(GlobalContext);
+    const {userToken, userState, getStorageItems} = useContext(GlobalContext);
 
     useEffect(() => {
         getStorageItems()
@@ -14,7 +14,7 @@ function IndexRoutes() {
 
     return (
         <NavigationContainer>
-            {userToken ? <AppRoutes/> : <AuthRoutes/>}
+            {userToken && userState?.id ? <AppRoutes/> : <AuthRoutes/>}
         </NavigationContainer>
 
     );

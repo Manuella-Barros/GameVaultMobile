@@ -1,4 +1,4 @@
-import {Button, HStack, ScrollView, Text, View, VStack} from "native-base";
+import {Button, Center, HStack, ScrollView, Text, View, VStack} from "native-base";
 import {DrawerActions, useNavigation} from "@react-navigation/native";
 import {List, MagnifyingGlass} from "phosphor-react-native";
 import React, {useContext, useEffect, useState} from "react";
@@ -41,9 +41,12 @@ function ReviewsContainer() {
 
                     <VStack space={5}>
                         {
+                            reviews?.length == 0 && <Center><Text color={"white"}>Realize a primeira avaliação</Text></Center>
+                        }
+                        {
                             reviews && reviews.map(r => <Review key={r.rating.id}
-                                                                    game={r.game}
-                                                                    rating={r.rating}
+                                                                        game={r.game}
+                                                                        rating={r.rating}
                                                             />
                             )
                         }
