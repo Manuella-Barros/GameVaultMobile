@@ -51,7 +51,7 @@ function Home() {
 
                 <UserReview gameID={currentGame.id} nextGame={() => nextGame()}/>
 
-                <CommentsContainer/>
+                <CommentsContainer gameID={currentGame.id}/>
             </View>
         </ScrollView>
         </VStack>
