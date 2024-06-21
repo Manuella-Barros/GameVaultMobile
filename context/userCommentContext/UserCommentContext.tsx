@@ -1,5 +1,6 @@
 import {createContext, useState} from "react";
 import {IUserCommentContext, IUserCommentContextProviderProps} from "./types";
+import {number} from "zod";
 
 export const UserCommentContext = createContext({} as IUserCommentContext)
 
@@ -9,10 +10,14 @@ export const UserCommentContextProvider = ({children}: IUserCommentContextProvid
     const [isGameRated, setIsGameRated] = useState(false);
     const [starsRating, setStarsRating] = useState<number>(1);
 
+
+    function handleSetRating(newRating: number){
+        setStarsRating(newRating)
+    }
     return (
         <UserCommentContext.Provider value={{
             setIsNextGameLoading, isNextGameLoading, setIsCommentLoading, isCommentLoading,
-            setIsGameRated, isGameRated, setStarsRating, starsRating
+            setIsGameRated, isGameRated, handleSetRating, starsRating
         }}>
             {children}
         </UserCommentContext.Provider>

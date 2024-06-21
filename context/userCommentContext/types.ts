@@ -7,7 +7,7 @@ export interface IUserCommentContext {
     isCommentLoading: boolean
     setIsGameRated: Dispatch<SetStateAction<boolean>>
     isGameRated: boolean
-    setStarsRating: Dispatch<SetStateAction<number>>
+    handleSetRating:(a: number) => void
     starsRating: number
 }
 

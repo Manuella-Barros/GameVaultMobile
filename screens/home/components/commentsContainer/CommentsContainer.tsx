@@ -18,7 +18,7 @@ function CommentsContainer({gameID}: ICommentsContainerProps) {
         <VStack py={3} space={4}>
 
             {
-                comments && comments.map(comment => <Comment {...comment}/>)
+                comments && comments.map(comment => <Comment key={comment.id} {...comment}/>)
             }
         </VStack>
     );
